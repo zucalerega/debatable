@@ -1,0 +1,15 @@
+{% extends 'profiles/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<div id="profile">
+  <img src="{% static 'templates/profileicon1.png' %}">
+  <p class="username">{{ object.username }}</p>
+  <p>{{ object.bio }}</p>
+  <p class="respecting"> {{ object.respecting }} </p>
+  <p class="respectedBy"> {{ object.respectedBy }} </p>
+  <p class="ideology"> {{ object.ideology }} </p>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'profiles/base.html' %}
+{% block content%}
+{{basic_suggestions}}
+
+<div class="posts">
+
+  {%for post in basic_suggestions%}
+      <div class="post">
+        <div class="card-body">
+          <h6 class="d-flex align-items-center mb-3"><a class=""href="#"><img class='rounded-circle' src="{{ post.0.author.profile.image.url }}" alt="user's profile image" width="20" height="20" /><span class="post-user">       @{{post.0.author}} - {{post.0.title}}</span></a></h6>
+          <p>{{post.0.content}}</p>
+          <small>{{post.0.date_posted}}</small>
+        </div>
+        <div class="action-container">
+          <form method="POST" action="like_view">
+            {%csrf_token%}
+            <input type="hidden" name="post-title" id="post-title" value="{{post.0.id}}"/>
+            <input type="hidden" name="action" id="action" value="True"/>
+            <button type="submit" value="Submit" id="submitButton">
+              <i class="fas fa-angle-double-up"></i>
+            </button>
+          </form>
+          <b class="votes">{{post.1}}</b>
+          <form method="POST" action="like_view">
+            {%csrf_token%}
+            <input type="hidden" name="post-title" id="post-title" value="{{post.0.id}}"/>
+            <input type="hidden" name="action" id="action" value="False"/>
+            <button type="submit" value="Submit" id="submitButton">
+              <i class="fas fa-angle-double-down"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+  {%endfor%}
+</div>
+
+  <div class='main-content'>
+    <h1>Debatable</h1>
+    <p></p>
+{% endblock %}

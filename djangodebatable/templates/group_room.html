@@ -1,0 +1,352 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+{% block content%}
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'templates/chaticon1.png'%}">
+  <title>Chat</title>
+  <link rel="stylesheet" type='text/css' href="{% static 'templates/style.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<style>
+body {
+  margin: 0 auto;
+  padding: 0 20px;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  max-width: 800px;
+
+</style>
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<style>
+.checked {
+  color: orange;
+}
+
+.card {
+  margin-top: 25px;
+}
+#vimeo-record-extension {
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+</style>
+
+
+
+<body>
+
+  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+    <h3 class="mb-0">Group Discussion about {{room_details.topic}}</h3>
+    <form class="leave" action="leaveview">
+      <input id="leave" name="leave" type="submit" class="btn btn-outline-primary" value="Leave d/{{room_details.topic}}"></input>
+    </form>
+  </li>
+<style>
+button.btn.btn-outline-primary {
+  color: #8219E8;
+  border: 1px solid #8219E8;
+}
+
+button.btn.btn-outline-primary:hover {
+  color: white;
+  background-color: #8219E8;
+}
+
+a.user {
+  color: #8219E8;
+}
+a.user:hover {
+  color: #6813bb;
+}
+
+  /* The Modal (background) */
+.d-flex.flex-column.align-items-stretch.flex-shrink-0 {
+  position: fixed;
+  left: 0;
+  top: 5vw;
+  height: 95vh;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  background-color: #f5f5f5;
+
+}
+
+a.list-group-item.list-group-item-action.py-3.lh-tight {
+  max-height: 23vh;
+  min-height: 5vh;
+  overflow: hidden;
+
+}
+#post-create-form {
+  position: fixed;
+  right: 0;
+}
+
+.list-group.list-group-flush.border-bottom.scrollarea {
+  width: 100%;
+}
+input #message, select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+input[type=number], select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+.card {
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.d-flex.flex-column.align-items-stretch.flex-shrink-0 {
+  top: 5vw;
+  height: 100vh;
+
+}
+li.list-group-item.d-flex.justify-content-between.align-items-center.flex-wrap {
+  position: fixed;
+  top: 5vw;
+  right: 15vw;
+  z-index: 10;
+  width: 60vw;
+  max-width: 60vw;
+  background-color: #ededed;
+  border-radius: 0;
+  border-left: 0px solid blue;
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+
+}
+#display {
+  position:fixed;
+  top: 9vh;
+  height: 76vh;
+  overflow-y: auto;
+  width: 60vw;
+  right: 15vw;
+  border-radius: 0;
+  background-color: #ededed;
+  padding: 20px;
+
+}
+a {
+  color: black;
+}
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+#top-bar {
+  position: fixed;
+  z-index: 10;
+  top: 5vw;
+}
+.container {
+  position: fixed;
+  bottom: 0;
+  right: 15vw;
+  max-width: 60vw;
+  border-radius: 0;
+  padding: 20px;
+  background-color: #f2f2f2;
+
+}
+input.btn.btn-primary {
+  display: none;
+}
+
+</style>
+<body>
+  <div class="d-flex flex-column align-items-stretch flex-shrink-0" style="width: 25vw;">
+      <a href="{% url 'chat:chathome' %}" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+        <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-5 fw-semibold">Your Ongoing Discussions</span>
+      </a>
+
+      <div class="list-group list-group-flush border-bottom scrollarea">
+        {%for key, value in message_list.items%}
+        <a href="{% url 'chat:room' key.name %}" class="list-group-item list-group-item-action py-3 lh-tight" {%if key.name == room%} style="background-color: #8219E8; color:#f5f5f5;"{%endif%}>
+          <div class="d-flex w-100 align-items-center justify-content-between">
+            <strong class="mb-1">{%if key.group_room != True%}Discussion with {%if request.user.username == key.auo %}{{key.aut}}{%else%}{{key.auo}}{%endif%}{%else%}Group discussion about {{key.topic}}{%endif%}</strong>
+            <small class='text-muted'>{{value.date.0}}{{value.date.1}}{{value.date.2}}</small>
+          </div>
+          <div class="col-10 mb-1 small">{% if value == 'No messages yet'%}Click here to discuss!{%else%}{{value.value}}{%endif%}</div>
+        </a>
+        {%endfor%}
+
+      </div>
+  </div>
+  <div id="display">
+    <p>Type anything in the message box to chat!</p>
+    <small>Your topic is {{room_details.topic}}. You can say whatever you want, but try to stay on topic!</small>
+  <!-- <div class="container darker">
+    <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+    <span class="time-left">20th, April 2021</span>
+  </div> -->
+
+  </div>
+
+  <script>
+  $(document).ready(function(){
+
+  setInterval(function(){
+      $.ajax({
+          type: 'GET',
+          url : "/chat/getMessages/{{room}}/",
+          success: function(response){
+              var old_display = $("#display");
+              $("#display").empty();
+              for (var key in response.messages)
+              {
+                  var temp="<div class='card'><h5 class='card-title'><a href=/profile/"+response.messages[key].sender+">"+response.messages[key].sender+"</a></h5><p class='card-text'>"+response.messages[key].value+"</p></div><span class='time-left'><small>"+response.messages[key].date+"</small></span></div>";
+                  $("#display").append(temp);
+                  console.log(old_display == $("#display").html)
+                  console.log($("#display").html)
+              }
+              //$(document).scrollTop($(document).height());
+
+          },
+          error: function(response){
+              console.log('LLLL')
+          }
+      });
+  },1000);
+  })
+  </script>
+
+
+  <div class="container">
+      <style>
+      input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      }
+
+      input[type=number], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      }
+      .card {
+        border-radius: 5px;
+        padding: 20px;
+      }
+
+      .d-flex.flex-column.align-items-stretch.flex-shrink-0 {
+        top: 0;
+        height: 100vh;
+
+      }
+      li.list-group-item.d-flex.justify-content-between.align-items-center.flex-wrap {
+        position: fixed;
+        top: 0;
+        right: 15vw;
+        z-index: 10;
+        width: 60vw;
+        max-width: 60vw;
+        background-color: #f2f2f2;
+        border-radius: 0;
+        border-left: 0px solid blue;
+
+      }
+      #display {
+        position:fixed;
+        top: 9vh;
+        height: 76vh;
+        overflow-y: auto;
+        width: 60vw;
+        right: 15vw;
+        border-radius: 0;
+        background-color: #f2f2f2;
+        padding: 20px;
+
+      }
+      a {
+        color: black;
+      }
+      a:hover {
+        color: black;
+        text-decoration: none;
+      }
+      #top-bar {
+        position: fixed;
+        z-index: 10;
+        top: 0;
+      }
+      .container {
+        position: fixed;
+        bottom: 0;
+        right: 15vw;
+        max-width: 60vw;
+        border-radius: 0;
+        padding: 20px;
+        background-color: #f2f2f2;
+
+      }
+      input.btn.btn-primary {
+        display: none;
+      }
+      </style>
+
+      <form id="post-form">
+          {% csrf_token %}
+          <input type="hidden" name="username" id="username" value="{{username}}"/>
+          <input type="hidden" name="username" id="username" value="{{username}}"/>
+          <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+          <input type="text" name="message" id="message" placeholder="Message group about {{room_details.topic}}"/>
+          <input class="btn btn-primary" id="rating-submit" type="submit" value="Send"/>
+      </form>
+  </div>
+
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type:'POST',
+        url:'/chat/send',
+        data:{
+            username:$('#username').val(),
+            room_id:$('#room_id').val(),
+            message:$('#message').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data){
+        }
+      });
+      document.getElementById('message').value = ''
+    });
+  </script>
+
+</html>
+{% endblock %}

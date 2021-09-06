@@ -1,0 +1,14 @@
+{% extends "profiles/base.html" %}
+{% block content%}
+   <h1 class='article-title'>{{ object.title }}</h1>
+   <p>{{object.content}}</p>
+   <img class='rounded-circle' src="{{ post.author.profile.image.url }}" alt="user's profile image">
+   <a href="{% url 'posts:user-posts' object.author.username %}">By {{object.author}}</a>
+   <p>{{object.date_posted}}</p>
+   {% if object.author == user %}
+    <a class='btn-secondary btn-sm mt-1 mb-1' href="{% url 'posts:post-update' object.id %}">Update Post</a>
+    <a class='btn-danger btn-sm mt-1 mb-1' href="{% url 'posts:post-delete' object.id %}">Delete Post</a>
+
+
+   {% endif %}
+{% endblock content%}

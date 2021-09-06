@@ -1,0 +1,361 @@
+<div id='profile'>
+  <h1 class='username'>{{ object.user }}</h1>
+  <img class='profile-pic' src="{{ object.user.profile.image.url }}" alt="profile picture">
+  <p>{{ object.bio }}</P>
+  <p class="respecting"> Following {{ object.respecting }} </p>
+  <p class="respectedBy"> Followers {{ object.respectedBy }} </p>
+  <p class="ideology"> {{ object.ideology }} </p>
+  <form action='report/'>
+    <input type="submit" name="report" value="Report {{ object.user }}">
+  </form>
+  <form id='follow' method="post" action="follow/">
+    {% csrf_token %}
+    <input type="submit" name="Follow" value="{% if follow == 0 %}follow{% else %}Unfollow{% endif %}">
+  </form>
+</div>
+<div class="col-md-4">
+  <div class="content-section">
+    <h3>Our Sidebar</h3>
+    <p class='text-muted'>You can put any information here you'd like.
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-light">Latest Posts</li>
+        <li class="list-group-item list-group-item-light">Announcements</li>
+        <li class="list-group-item list-group-item-light">Calendars</li>
+        <li class="list-group-item list-group-item-light">etc</li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+
+{% extends 'profiles/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <h1>{{ object.user }}</h1>
+
+
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class='form-group'>
+    <legend class='border-bottom mb-4'>Profile Info</legend>
+    {{ u_form|crispy }}
+    {{ p_form|crispy }}
+  </fieldset>
+    <div class="form-group">
+      <button class='btn btn-outline-info' type='submit'>Save changes</button>
+    </div>
+<div class="border-top pt-3">
+
+</div>
+
+
+</form>
+{% endblock content %}
+
+
+<style>
+body {
+  margin: 0 auto;
+  padding: 0 20px;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  max-width: 800px;
+
+
+</style>
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<style>
+.checked {
+  color: orange;
+}
+
+.card {
+  margin-top: 25px;
+  border: 1px solid black;
+}
+#vimeo-record-extension {
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+
+</style>
+
+
+
+<body>
+
+  <div id="top-bar">
+    <form action="rateview" method="POST">
+      {% csrf_token %}
+      <p>Rate {{opponent.user.username}}!</p>
+      <p>Current rating: {% if opponent.rating != -1 %} {{opponent.rating}}/10{% else %} No rating yet {% endif %}</p>
+      <p>Ratings: {{ totalratings }}</p>
+      <input type="hidden" name="username" id="username" value="{{username}}"/>
+      <input type="hidden" name="opponent" id="opponent" value="{{opponent.user.username}}"/>
+      <input type="text" name="rating" id="rating" width="10px" placeholder="Rating" />
+      <input type="text" name="feedback" id="feedback" width="100px" placeholder="Feedback"/>
+      <input type="submit" class="btn btn-primary" name="submit-rating" value="Send Feedback"/>
+    </form>
+  </div>
+  <div id="display">
+
+  <!-- <div class="container darker">
+    <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+    <span class="time-left">20th, April 2021</span>
+  </div> -->
+
+  </div>
+
+  <script>
+  $(document).ready(function(){
+
+  setInterval(function(){
+      $.ajax({
+          type: 'GET',
+          url : "/chat/getMessages/{{room}}/",
+          success: function(response){
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages)
+              {
+                  var temp="<div class='card'><h5 class='card-title'><a href=/profile/"+response.messages[key].user+">"+response.messages[key].user+"</a></h5><p class='card-text'>"+response.messages[key].value+"</p></div><span class='time-left'><small>"+response.messages[key].date+"</small></span></div>";
+                  $("#display").append(temp);
+              }
+          },
+          error: function(response){
+              console.log('LLLL')
+          }
+      });
+  },1000);
+  })
+  </script>
+
+
+  <div class="container">
+      <style>
+      input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      }
+
+      div {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      }
+
+      a {
+        color: black;
+      }
+      a:hover {
+        color: black;
+        text-decoration: none;
+      }
+      </style>
+
+      <form id="post-form">
+          {% csrf_token %}
+          <input type="hidden" name="username" id="username" value="{{username}}"/>
+          <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+          <input type="text" name="message" id="message" width="100px" />
+          <input class="btn btn-primary" id="rating-submit" type="submit" value="Send" />
+      </form>
+  </div>
+
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type:'POST',
+        url:'/chat/send',
+        data:{
+            username:$('#username').val(),
+            room_id:$('#room_id').val(),
+            message:$('#message').val(),
+          csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data){
+           // alert(data)
+        }
+      });
+      document.getElementById('message').value = ''
+    });
+  </script>
+
+</html>
+{% endblock %}
+
+
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'templates/chaticon1.png'%}">
+  <title>Chat</title>
+  <link rel="stylesheet" type='text/css' href="{% static 'templates/style.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+{% block content%}
+<style>
+body {
+  margin: 0 auto;
+  padding: 0 20px;
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  max-width: 800px;
+
+
+</style>
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<style>
+.checked {
+  color: orange;
+}
+
+.card {
+  margin-top: 25px;
+  border: 1px solid black;
+}
+#vimeo-record-extension {
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+
+</style>
+
+
+
+<body>
+
+  <h2>Chat With {{opponent.user.username}}</h2>
+  <div id="top-bar">
+    <form action="rateview" method="POST">
+      {% csrf_token %}
+      <p>Rate {{opponent.user.username}}!</p>
+      <p>Current rating: {% if opponent.rating != -1 %} {{opponent.rating}}/10{% else %} No rating yet {% endif %}</p>
+      <p>Ratings: {{ totalratings }}</p>
+      <input type="hidden" name="username" id="username" value="{{username}}"/>
+      <input type="hidden" name="opponent" id="opponent" value="{{opponent.user.username}}"/>
+      <input type="text" name="rating" id="rating" width="10px" placeholder="Rating" />
+      <input type="text" name="feedback" id="feedback" width="100px" placeholder="Feedback"/>
+      <input type="submit" class="btn btn-primary" name="submit-rating" value="Send Feedback"/>
+    </form>
+  </div>
+  <div id="display">
+
+  <!-- <div class="container darker">
+    <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+    <span class="time-left">20th, April 2021</span>
+  </div> -->
+
+  </div>
+
+  <script>
+  $(document).ready(function(){
+
+  setInterval(function(){
+      $.ajax({
+          type: 'GET',
+          url : "/chat/getMessages/{{room}}/",
+          success: function(response){
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages)
+              {
+                  var temp="<div class='card'><h5 class='card-title'><a href=/profile/"+response.messages[key].user+">"+response.messages[key].user+"</a></h5><p class='card-text'>"+response.messages[key].value+"</p></div><span class='time-left'><small>"+response.messages[key].date+"</small></span></div>";
+                  $("#display").append(temp);
+              }
+          },
+          error: function(response){
+              console.log('LLLL')
+          }
+      });
+  },1000);
+  })
+  </script>
+
+
+  <div class="container">
+      <style>
+      input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      }
+
+      div {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      }
+
+      a {
+        color: black;
+      }
+      a:hover {
+        color: black;
+        text-decoration: none;
+      }
+      </style>
+
+      <form id="post-form">
+          {% csrf_token %}
+          <input type="hidden" name="username" id="username" value="{{username}}"/>
+          <input type="hidden" name="username" id="username" value="{{username}}"/>
+          <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+          <input type="text" name="message" id="message" width="100px" />
+          <input class="btn btn-primary" id="rating-submit" type="submit" value="Send" />
+      </form>
+  </div>
+
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).on('submit','#post-form',function(e){
+      e.preventDefault();
+
+      $.ajax({
+        type:'POST',
+        url:'/chat/send',
+        data:{
+            username:$('#username').val(),
+            room_id:$('#room_id').val(),
+            message:$('#message').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+        },
+        success: function(data){
+           // alert(data)
+        }
+      });
+      document.getElementById('message').value = ''
+    });
+  </script>
+
+</html>
+{% endblock %}
+
+
+
+
+var temp="{% for i in messages %}<div class='card'><h5 class='card-title'><a href=/profile/{{i.sender}}>{{i.sender}}</a></h5><p class='card-text'>{{i.value}}</p></div><span class='time-left'><small>{{i.date}}</small></span></div>{%endfor%}";
+$("#display").append(temp);

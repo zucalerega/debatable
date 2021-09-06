@@ -1,0 +1,34 @@
+{% extends "profiles/base.html" %}
+{% block content%}
+    <h1 class='mb-2'>Posts by {{ view.kwargs.username }} {{ page_obj.paginator.count }} total posts</h1>
+    {% for post in posts %}
+     <h2><a href="{% url 'posts:post-detail' post.id %}" class='article-title'>{{ post.title }}</a></h2>
+     <p>{{post.content}}</p>
+     <img class='rounded-circle' src="{{ post.author.profile.image.url }}" alt="user's profile image">
+     <a href="{% url 'posts:user-posts' post.author.username %}">By {{post.author}}</a>
+     <p>{{post.date_posted}}</p>
+    {% endfor %}
+    {% if is_paginated %}
+
+
+      {% if page_obj.has_previous %}
+        <a class='btn btn-outline-info mb-4'href="?page=1">First</a>
+        <a class='btn btn-outline-info mb-4'href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class='btn btn-info mb-4'href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class='btn btn-outline-info mb-4'href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class='btn btn-outline-info mb-4'href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class='btn btn-outline-info mb-4'href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    {% endif %}
+
+{% endblock content%}

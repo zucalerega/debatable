@@ -1,0 +1,237 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" ref="{% static 'pages/style.css' %}">
+<link rel="icon" href="/icons/deblogofavicon.png">
+<title>Debatable</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+</head>
+<body id="home">
+  <div class="navbar">
+    <a href="./home.html" class="logo">
+      <div class="imgcontainer">
+        <img src="/icons/deblogo.png" alt="Amazing Logo" class="logo">
+      </div>
+    </a>
+    <div class="search-container">
+      <form action="/action_page.php">
+        <input type="text" placeholder="Search Debatable..." name="search" required>
+        <button type="submit">
+          <img src="/icons/searchicon.png" alt="Amazing Logo" class="search">
+        </button>
+      </form>
+    </div>
+    <div class="iconcontainer">
+      <a class="icon" href="./profile.html">
+        <img src="/icons/profileicon1.png" alt="Amazing Logo" class="icon">
+      </a>
+      <a class="icon" href="./education.html">
+        <img src="/icons/education.png" alt="Amazing Logo" class="icon">
+      </a>
+      <a class="icon" href="./ideology-quiz.html">
+        <img src="/icons/quizicon.png" alt="Amazing Logo" class="icon">
+      </a>
+      <a class="icon" href="./chats.html">
+        <img src="/icons/chaticon1.png" alt="Amazing Logo" class="icon">
+      </a>
+      <div class="dropdown">
+        <img src="/icons/menuicon.png" alt="Amazing Logo" class="icon">
+        <div class="dropdown-content" style="right: 0%;">
+          <a href="./settings.html">Settings</a>
+          <a href="./teams.html">Teams</a>
+          <a href="./profile.html">Profile</a>
+          <a href="./education.html">Education</a>
+          <a href="./ideology-quiz.html">Ideology Quiz</a>
+          <a href="./chats.html">Chats</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column lside">
+      <ul class="feed">
+        <li class="feed_header">
+          Your Feed
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+        <li class="feed">
+          Bob
+        </li>
+        <li class="feed">
+          Tim
+        </li>
+
+      </ul>
+    </div>
+    <div class="column middle">
+      <div class="tutorial">
+        <h2 class="home-header">Welcome to Debatable!</h2>
+        <p class="site-description">
+            We're so glad that you're here. But, we just want to go over the ins and outs
+            of the site so you can have the best possible experience on debatable.
+
+            Debatable is not a social media site in the conventional sense. Users mainly
+            engage in discourse through private or group chats that can be found by navigating
+            to the chats page in the navigation bar above.
+
+            For the best experience, we suggest that you sign up by clicking on the profile icon and take the ideology quiz to accurately gauge
+            your polotical biases. This allows us the ability to match you better to help foster useful
+            discorse.
+
+            If you're here with a school or educational oraganization, navigate to the book icon to set
+            that up.
+
+            After logging in, you can customize your profile by clicking on your icon in the navigation bar.
+
+            Our mission is to provide a platform for users to engage in a civil political discorse.
+            To moderate this policy, we encourage users to accurately rate their opponent by giving them
+            a respect score after you finish your discussion. The weight of your rating is based on your
+            opponents as well as your respect going into the chat. Debatable also has a community post
+            feature where you can post any text that is allowed by the 1st ammendment.
+
+            If your run into hate speech, threats, or discriminitory language of any sort in a chat or a
+            post, please submit an anonymous report to us and we will notify you of the result.
+
+            Thank you, and happy debating!
+        </p>
+        <div class="spectate-chats-container">
+          <h2 class="spectate-chats-header">Spectate Top Chats Here!</h2>
+          <table class="spectate-chats">
+            <tbody>
+              <tr>
+              </tr>
+            <tbody>
+          </table>
+        </div>
+        <div class="respect-increase-container">
+          <h2 class="respect-increase-header">
+            If you're looking to increase your respect, here are some quick tips!
+          </h2>
+          <ul class="tip-list">
+            <li class="tip">
+              Act civilized in your chats. This will help your case a lot when your opponnent goes to rate you!
+              Attack the argument not the person.
+            </li>
+            <li class="tip">
+              Rate your opponents fairly, when your rating is similar to your opponents prior rating you gain
+              credibility.
+            <li class="tip">
+              Listen to your opponents points. They will not think very highly of you if you just ignore everything
+              that they say.
+            </li>
+            <li class="tip">
+              Back up all of your claims with facts and/or evidence. People will listen and respect you more
+              if they know that you aren't just spouting nonsense.
+            </li>
+            <li class="tip">
+              Try to find common ground and start from there.
+            </li>
+            <li class="tip">
+              Be open to change. Going in with a growth mindset will help you see where your opponent is coming from.
+            </li>
+          </ul>
+        </div>
+          <div class="chat-example">
+            <h2 class="example-chat header">
+              Here is an example chat to practice with before you go into your 1st chat!
+            </h2>
+            <div class="practice-chat-button">
+              <a class="practice-chat-link" href="./practice.html">
+                Practice!
+              </a>
+            </div>
+          </div>
+          <h2 class="donation">Support Debatable</h2>
+          <p class='donation'>
+            Debatable is and will always be a free site. However, in these early stages it's hard to get
+            the word out without proper funding. If you have enjoyed your experience on the site, please consider making
+            a donation down below.
+
+            Any amount is amazing and amounts over $10 USD will come with the perks of being able to beta test
+            the competitive feature along with a golden rim on your profile as a show of our gratitude to you!
+          </p>
+          <a class="donation" href="./donation.html">
+            Donate Here!
+          </a>
+    </div>
+  </div>
+  <div class="column rside">
+    <div class="ad-slot-1">
+      <div class="sidebar-ad">
+
+      </div>
+      <div class="sidebar-ad-gif">
+
+      </div>
+    </div>
+    <div class="ad-slot-2">
+      <div class="sidebar-ad">
+
+      </div>
+      <div class="sidebar-ad-gif">
+
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+
+
+
+</html>

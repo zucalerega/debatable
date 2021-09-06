@@ -1,0 +1,40 @@
+{% load static %}
+<head>
+
+  <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <link rel="icon" href="{% static 'templates/deblogo.png'%}">
+
+
+
+
+  <link rel="stylesheet" type='text/css' href="{% static 'templates/style.css'%}">
+</head>
+{% load crispy_forms_tags %}
+  <div class="content-section">
+    <form method="post">
+      {% csrf_token %}
+      <fieldset class='form-group'>
+        <legend class='border-bottom mb-4'>Log In</legend>
+        {{ form|crispy }}
+      </fieldset>
+        <div class="form-group">
+          <button class='btn btn-outline-info' type='submit'>Log In</button>
+          <small class='text-muted ml-2'>
+            <a href="{% url 'password_reset' %}">Forgot password? Click here</a>
+          </small>
+        </div>
+    <div class="border-top pt-3">
+      <small class='text-muted'>
+        Need an account?
+        <a href="{% url 'register' %}" class='ml-2'>Register here</a>
+      </small>
+    </div>
+
+
+    </form>
+  </div>

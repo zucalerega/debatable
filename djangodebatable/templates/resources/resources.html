@@ -1,0 +1,31 @@
+{% extends 'profiles/base.html' %}
+{% block content%}
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+  <h2>Disscusion Resources</h2>
+  <div class="resource-container">
+    {%for i in resources%}
+      <div class="abortion-resources">
+        <div class="card h-10">
+          <div class="card-body">
+            <h5 class="d-flex align-items-center mb-3"><a href="#">{{i.0.type}}</a></h5>
+          </div>
+        </div>
+          {%for resource in i%}
+              <div class="card h-10">
+                <div class="card-body">
+                  <h5 class="d-flex align-items-center mb-3"><a href="{{resource.link}}" target="__blank">{{resource.title}}</a></h5>
+                  <h6>Authors: {{resource.author}}</h6>
+                  <p>{{resource.content}}</p>
+                  <strong>{{resource.style}}</strong>
+                  <small>{{resource.published}} - {{resource.uses}} Uses</small>
+                </div>
+              </div>
+          {% endfor %}
+      </div>
+    {%endfor%}
+  </div>
+</html>
+{%endblock%}

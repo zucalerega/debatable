@@ -1,0 +1,25 @@
+{% load static %}
+<head>
+
+  <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <link rel="icon" href="{% static 'templates/deblogo.png'%}">
+
+
+
+
+  <link rel="stylesheet" type='text/css' href="{% static 'templates/style.css'%}">
+</head>
+<h2>You are signed out.</h2>
+    <div class="border-top pt-3">
+      <small class='text-muted'>
+        Need an account?
+        <a href="{% url 'register' %}" class='ml-2'>Register Here</a>
+        Already have an account?
+        <a href="{% url 'login' %}" class='ml-2'>Login Here</a>
+      </small>
+    </div>

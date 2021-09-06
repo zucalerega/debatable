@@ -1,0 +1,8 @@
+{% extends 'profiles/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<form action="." method='POST'>{% csrf_token %}
+	{{ form.as_p }}
+<input class="btn btn-primary" type="submit" value="Finish Quiz" />
+{% endblock content %}

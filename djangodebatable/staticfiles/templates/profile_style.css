@@ -1,0 +1,113 @@
+body.profile {
+  background: rgb(63,94,251);
+  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+
+}
+.bttns {
+  display: flex;
+}
+
+form.follow {
+  margin-right: 10px;
+}
+
+span.material-icons.text-info.mr-2 {
+  color: #8219E8;
+}
+span.material-icons.text-info.mr-2:hover {
+  color: #6813bb;
+}
+input.btn.btn-outline-primary {
+  color: #8219E8;
+  border: 1px solid #8219E8;
+}
+input.btn.btn-outline-primary:hover {
+  color: white;
+  background-color: #8219E8;
+}
+input.btn.btn-primary {
+  background-color: #8219E8;
+  border: 1px solid #8219E8;
+
+}
+input.btn.btn-primary:hover {
+  background-color: #6813bb;
+  border: 1px solid #6813bb;
+
+}
+a.user-links {
+  color: #8219E8;
+}
+
+a.user-links:hover {
+  color: #6813bb;
+  text-decoration: none;
+}
+
+.posts {
+  border: 1px solid black;
+  position: fixed;
+  width: 100vw;
+  padding-left: 30vw;
+  padding-right: 30vw;
+  padding-top: 5vw;
+  overflow-y: auto;
+  left: 0;
+  top: 5vw;
+  height: 93vh;
+}
+
+.post {
+  width: 40vw;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.action-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px soild #ccc;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+
+#submitButton {
+  background-color: #f2f2f2;
+  border: 0px solid black;
+  border-radius: 100%;
+}
+
+b.votes {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+i.far.fa-grin-alt:hover {
+  color: #4ad12c;
+  opacity: 0.8;
+
+  border-radius: 100%;
+}
+
+i.far.fa-angry:hover{
+  color: #d12432;
+  opacity: 0.8;
+  border-radius: 100%;
+
+}
+
+a.mb-0 {
+  color: #8219E8;
+}
+
+a.mb-0:hover {
+  text-decoration: none;
+  color: #6813bb;
+}

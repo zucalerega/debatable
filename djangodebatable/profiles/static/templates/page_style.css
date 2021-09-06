@@ -1,0 +1,19 @@
+.abortion-resources {
+  border: 1px solid #ccc;
+  width: 30vw;
+  color: black;
+  display: inline-block;
+  margin-bottom: 5vw;
+  margin-top: 5vw;
+}
+
+.resource-container {
+  position: fixed;
+  width: 100vw;
+  border: 1px solid black;
+  left: 0;
+  top: 5vw;
+  padding-left: 4vw;
+  height: 93vh;
+  overflow-y: auto;
+}
