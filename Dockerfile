@@ -14,6 +14,6 @@ RUN pip install -r requirements.txt
 COPY djangodebatable /usr/src/app/
 COPY entrypoint.sh /usr/src/app
 
-EXPOSE 8000
+EXPOSE 5432
 
 ENTRYPOINT ["./entrypoint.sh"]
