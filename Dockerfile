@@ -10,6 +10,7 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
+RUN sudo apt install zlib1g
 RUN python -m pip install Pillow
 
 COPY djangodebatable /usr/src/app/
