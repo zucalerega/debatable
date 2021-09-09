@@ -86,7 +86,7 @@ DATABASES = {
     'NAME': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_DEFAULT_DATABASE_NAME', 'postgres'),
     'USER': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_LOGIN', 'postgres'),
     'PASSWORD': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_PASSWORD'),
-    'HOST': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_HOST', 'z8848cd41-postgresql.||Q_DOMAIN||'),
+    'HOST': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_HOST', 'z8848cd41-postgresql.qovery.io'),
     'PORT': os.environ.get('QOVERY_POSTGRESQL_Z8848CD41_PORT', 5432),
   }
 }
