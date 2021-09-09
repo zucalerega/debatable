@@ -5,4 +5,3 @@ Django~=3.0.5
 bs4
 requests
 numpy
-itertools
