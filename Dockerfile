@@ -10,8 +10,7 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
-RUN apt-get -y install libz-dev
-RUN python -m pip install Pillow
+RUN python -m pip install Pillow==5.0.0
 
 COPY djangodebatable /usr/src/app/
 COPY entrypoint.sh /usr/src/app
