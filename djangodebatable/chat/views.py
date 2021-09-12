@@ -54,7 +54,7 @@ def stop_search(request):
 # The way to use this decorator is:
 
 # Create your views here.
-@login_required
+#@login_required
 def home(request):
     stop_search(request)
     temp = []
@@ -98,7 +98,7 @@ def home(request):
         }
     return render(request, "chathome.html", context)
 
-@login_required
+#@login_required
 def room(request, room):
     if Room.objects.get(name=room).group_room == False:
         searching_user = Profile.objects.get(user=request.user)
