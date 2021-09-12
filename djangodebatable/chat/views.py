@@ -56,7 +56,8 @@ def stop_search(request):
 # Create your views here.
 #@login_required
 def home(request):
-    stop_search(request)
+    print(request.user)
+    #stop_search(request)
     temp = []
     for i in Room.objects.all():
         if i.aut != None:
