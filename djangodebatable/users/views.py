@@ -27,6 +27,7 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+	    Profile.objects.create(user=User.objects.get(username=username))
             return redirect("/profileChange/")
     else:
         form = UserRegisterForm()
