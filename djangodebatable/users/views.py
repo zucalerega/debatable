@@ -68,7 +68,7 @@ def profile_list_view(request):
 
 @login_required
 def profileChange(request):
-    stop_search(request)
+    #stop_search(request)
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
