@@ -2,7 +2,7 @@ body{
   font-family: 'Varela Round', sans-serif;
   position: relative;
   top: 10vw;
-  background-color: #e2e8f0;
+  background-color: #ededed;
 
 }
 
@@ -78,8 +78,7 @@ img.logo {
 
 
 .search-conainer button:hover {
-  background: rgb(63,94,251);
-  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background-color: #6813bb;
   cursor: pointer;
 }
 
@@ -162,8 +161,7 @@ img.menuicn:hover {
 
 /* Change color on hover/mouse-over */
 .nabar img:hover {
-  background: rgb(63,94,251);
-  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background-color: #6813bb;
 }
 
 /* Ensure proper sizing */

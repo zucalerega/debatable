@@ -5,14 +5,16 @@ from users.models import Profile
 from users.models import Follow
 
 def home_view(request):
-    if request.user != 'AnonymousUser':
-        queryset = []
-        for i in Follow.objects.filter(follower = request.user):
-            for j in Post.objects.filter(author = i.following):
-                queryset.append([j, (len(Like.objects.filter(post=j, action=True))- len(Like.objects.filter(post=j, action=False)))])
+    # if request.user != 'AnonymousUser':
+    #     queryset = []
+    #     for i in Follow.objects.filter(follower = request.user):
+    #         for j in Post.objects.filter(author = i.following):
+    #             queryset.append([j, (len(Like.objects.filter(post=j, action=True))- len(Like.objects.filter(post=j, action=False)))])
+    #
+    #     context = {"basic_suggestions": queryset}
+    # return render(request, 'users/home.html', context)
+    return redirect('chat:chathome')
 
-        context = {"basic_suggestions": queryset}
-    return render(request, 'users/home.html', context)
 
 def search_view(request, username=''):
     query = request.POST.get('search', request.user)

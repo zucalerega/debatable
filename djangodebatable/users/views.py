@@ -77,7 +77,7 @@ def profileChange(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Update success')
-            return redirect('users:profile', request.user)
+            return redirect('quiz')
     else:
         u_form=UserUpdateForm(instance = request.user)
         p_form=ProfileUpdateForm(instance = request.user.profile)
@@ -130,7 +130,6 @@ def quiz_view(request):
         user.ideology = str(round(float(econ_num), 2)) + "," + str(round(float(auth_num), 2))
         user.save()
 
-        messages.success(request, f'sup liberal')
     context = {
     'form': form
     }
