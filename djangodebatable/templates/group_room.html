@@ -21,7 +21,7 @@ body {
   padding: 0 20px;
   background: rgb(63,94,251);
   background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-  max-width: 800px;
+  min-width: 1px;
 
 </style>
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
@@ -45,8 +45,9 @@ body {
 
   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
     <h3 class="mb-0">Group Discussion about {{room_details.topic}}</h3>
+    <small>{{members|length}} members</small>
     <form class="leave" action="leaveview">
-      <input id="leave" name="leave" type="submit" class="btn btn-outline-primary" value="Leave d/{{room_details.topic}}"></input>
+      <input id="leave" name="leave" type="submit" class="btn btn-outline-primary" value="Leave"></input>
     </form>
   </li>
 <style>
@@ -124,21 +125,23 @@ box-sizing: border-box;
 }
 li.list-group-item.d-flex.justify-content-between.align-items-center.flex-wrap {
   position: fixed;
-  top: 5vw;
+  top: 0;
   right: 15vw;
   z-index: 10;
   width: 60vw;
   max-width: 60vw;
-  background-color: #ededed;
+  background-color: #f2f2f2;
   border-radius: 0;
   border-left: 0px solid blue;
   box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
+  height: 9vh;
+  overflow: hidden;
+
 
 }
 #display {
   position:fixed;
   top: 9vh;
-  height: 76vh;
   overflow-y: auto;
   width: 60vw;
   right: 15vw;
@@ -308,6 +311,7 @@ input.btn.btn-primary {
         border-radius: 0;
         padding: 20px;
         background-color: #f2f2f2;
+        height: 15vh;
 
       }
       input.btn.btn-primary {
