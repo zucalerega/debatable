@@ -18,6 +18,7 @@ class Profile(models.Model):
     room = models.CharField(max_length=32, blank=True, null=True)
     topic = models.CharField(max_length=100, blank=True, null=True)
     style = models.CharField(max_length=100, blank=True, null=True)
+    preference = models.CharField(max_length=100, blank=True, null=True)
     rating = models.SmallIntegerField(default=-1)
     def __str__(self):
         return f'{self.user.username} Profile'
