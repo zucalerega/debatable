@@ -2,7 +2,7 @@ body{
   font-family: 'Varela Round', sans-serif;
   position: relative;
   top: 10vw;
-  background-color: #e2e8f0;
+  background-color: #ededed;
 
 }
 
@@ -26,6 +26,7 @@ h2 {
   background-color: white;
   box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2);
   z-index: 12;
+  height: 9vh;
 
 }
 /* Center the avatar image inside this conainer */
@@ -36,7 +37,7 @@ h2 {
 /* Avatar image */
 img.logo {
   position: static;
-  height: 5vw;
+  height: 100%;
   border-radius: 0%;
 }
 .search-conainer {
@@ -45,7 +46,6 @@ img.logo {
   width: 100%;
   flex-direction: row;
   background-color: black;
-  height: 5vw;
 }
 
 .search-conainer input {
@@ -78,8 +78,7 @@ img.logo {
 
 
 .search-conainer button:hover {
-  background: rgb(63,94,251);
-  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background-color: #6813bb;
   cursor: pointer;
 }
 
@@ -93,6 +92,7 @@ img.icn {
   width: 12vw;
   padding-right: 3.5vw;
   padding-left: 3.5vw;
+  height: 9vh;
 }
 
 img.menuicn {
@@ -102,6 +102,7 @@ img.menuicn {
 }
 
 img.menuicn:hover {
+  background-color: #6813bb;
 
 }
 /* drpdwn Button */
@@ -162,8 +163,7 @@ img.menuicn:hover {
 
 /* Change color on hover/mouse-over */
 .nabar img:hover {
-  background: rgb(63,94,251);
-  background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background: #6813bb;
 }
 
 /* Ensure proper sizing */
