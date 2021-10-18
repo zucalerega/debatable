@@ -62,6 +62,15 @@
             <option value="fracas">Fracas</option>
           </select>
         </div>
+
+        <div class="select">
+          <select name="ideology-preference" id="ideology-preference">
+            <option value="similar">Similar</option>
+            <option value="different">Different</option>
+            <option value="no_preference">No Preference</option>
+          </select>
+        </div>
+
         <div id="searching_users">
           <input id="croom" class="btn btn-primary" type="submit" value="Find Discussion Partner">There are {{searching_users}} people searching currently
         </div>
@@ -75,18 +84,18 @@
             <input id="croom" class="btn btn-primary" type="submit" value="Create or Join Group"/>
           </div>
           <div class="room-list">
-            <h3><i class="fas fa-angle-double-down"></i> Rooms for you <i class="fas fa-angle-double-down"></i></h3>
+            <h3>Rooms for you</h3>
             <div class="roomlink">
 
               {%for room, members in group_rooms.items%}
-                <a href="{{room.name}}"><li class="room">Join d/{{room.topic}} ({{members|length}} {%if members|length == 1%}member{%else%}members{%endif%}){%if request.user.username in members%} <i class="fas fa-check-circle"></i>{%endif%}</li></a>
+                <a href="{{room.name}}"><li class="room">Join {{room.topic}} ({{members|length}} {%if members|length == 1%}member{%else%}members{%endif%}){%if request.user.username in members%} <i class="fas fa-check-circle"></i>{%endif%}</li></a>
               {%endfor%}
             </div>
           </div>
         </form>
 
       <div class="info">
-        <h3><i class="fas fa-angle-double-down"></i> What are Debatabl Discussions? <i class="fas fa-angle-double-down"></i></h3>
+        <h3>What are Debatable Discussions?</h3>
 
           <div class="infocat">
             <h4>Features</h4>
