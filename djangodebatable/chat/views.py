@@ -15,15 +15,39 @@ from itertools import chain
 from posts.models import Post, Like
 from users.models import Follow
 def match(searching_users):
+    if len(searching_users) < 2:
+        return []
     for searching_user in searching_users.reverse():
         f_ideology = searching_users.reverse()[0].ideology.split(",")
         ideology = searching_user.ideology.split(",")
-        if ((float(f_ideology[0])-float(ideology[0]))**2 + (float(f_ideology[1])-float(ideology[1]))**2)**0.5 >= 1:
-            #print(2)
-            if searching_user.topic == searching_users.reverse()[0].topic:
-                #print(3)
-                if searching_user.style == searching_users.reverse()[0].style:
-                    if searching_users[0] != searching_users[1]:
+        f_preference = searching_users.reverse()[0].preference
+        preference = searching_user.preference
+        if preference == f_preference:
+            pref = preference
+        elif preference == "no_preference":
+            pref = f_preference
+        elif f_preference == "no_preference":
+            pref = preference
+        else:
+            pref = "null"
+        if pref == "different":
+            if ((float(f_ideology[0])-float(ideology[0]))**2 + (float(f_ideology[1])-float(ideology[1]))**2)**0.5 >= 3:
+                #print(2)
+                if searching_user.topic == searching_users.reverse()[0].topic or searching_user.topic == "random" or searching_users.reverse()[0].topic == "random":
+                    #print(3)
+                    if searching_user.style == searching_users.reverse()[0].style or searching_user.style == "no_preference" or searching_users.reverse()[0].style == "no_preference":
+                        if searching_users[0] != searching_user:
+                            return [searching_users.reverse()[0], searching_user]
+        elif pref == "similar":
+            if ((float(f_ideology[0])-float(ideology[0]))**2 + (float(f_ideology[1])-float(ideology[1]))**2)**0.5 < 3:
+                if searching_user.topic == searching_users.reverse()[0].topic or searching_user.topic == "random" or searching_users.reverse()[0].topic == "random":
+                    if searching_user.style == searching_users.reverse()[0].style or searching_user.style == "no_preference" or searching_users.reverse()[0].style == "no_preference":
+                        if searching_users[0] != searching_user:
+                            return [searching_users.reverse()[0], searching_user]
+        elif pref == "no_preference":
+            if searching_user.topic == searching_users.reverse()[0].topic or searching_user.topic == "random" or searching_users.reverse()[0].topic == "random":
+                if searching_user.style == searching_users.reverse()[0].style or searching_user.style == "no_preference" or searching_users.reverse()[0].style == "no_preference":
+                    if searching_users[0] != searching_user:
                         return [searching_users.reverse()[0], searching_user]
     return []
     #return [searching_users[0], searching_users[1]]
@@ -54,10 +78,9 @@ def stop_search(request):
 # The way to use this decorator is:
 
 # Create your views here.
-#@login_required
+@login_required
 def home(request):
-    print(request.user)
-    #stop_search(request)
+    stop_search(request)
     temp = []
     for i in Room.objects.all():
         if i.aut != None:
@@ -99,7 +122,7 @@ def home(request):
         }
     return render(request, "chathome.html", context)
 
-#@login_required
+@login_required
 def room(request, room):
     if Room.objects.get(name=room).group_room == False:
         searching_user = Profile.objects.get(user=request.user)
@@ -169,6 +192,7 @@ def room(request, room):
             "username": username,
             "room": room,
             "room_details": room_details,
+            "members": room_details.aut.split(","),
             "messages": queryset
         })
 
@@ -185,7 +209,7 @@ def checkview(request):
     searching_user.room = 'null'
     searching_user.topic = request.POST.get('topic', 'general')
     searching_user.style = request.POST.get('chat-style', 'general')
-
+    searching_user.preference = request.POST.get('ideology-preference', 'no_preference')
     #print(searching_user.searching)
     searching_user.searching = True
     searching_user.save()
