@@ -234,6 +234,8 @@ def checkview(request):
 
 def send(request):
     message = request.POST['message']
+    if "<" or ">" in message:
+        return redirect("/chat/")
     #username = request.POST['username']
     room_id = request.POST['room_id']
     now = datetime.now()
@@ -274,7 +276,7 @@ def rateview(request, room):
 
 def report(request, message, room):
     banned_words = ['fuck',
-    'porn'
+    'porn','luca has a high iq','luca is smart'
     ]
     reporter = Profile.objects.get(user=User.objects.get(username=request.user))
     offender = Profile.objects.get(user=message.user)
