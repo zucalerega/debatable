@@ -161,3 +161,4 @@ EMAIL_HOST_USER='debatableinfo@gmail.com'
 EMAIL_HOST_PASSWORD='ciwjicmnozzhatbs'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') ##specify static root
+django_heroku.settings(locals())
