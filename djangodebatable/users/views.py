@@ -3,9 +3,9 @@ from django.contrib import messages
 from .forms import UserRegisterForm, ReportForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
-from .models import Profile, Report, Follow
+from .models import Profile, Report, Follow, Feedback
 from users import views as user_views
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, QuizForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, QuizForm, FeedbackForm
 from django.contrib.auth.models import User
 from posts.models import Post, Like
 from django.urls import reverse
@@ -44,7 +44,7 @@ def dynamic_lookup_view(request, username):
     obj.save()
     ratings = Rating.objects.filter(recipient=str(username))
     posts = []
-    for j in Post.objects.filter(author = request.user):
+    for j in Post.objects.filter(author = User.objects.filter(username=username)[0]):
         posts.append([j, (len(Like.objects.filter(post=j, action=True))- len(Like.objects.filter(post=j, action=False)))])
     like_list = []
     dislike_list = []
@@ -135,3 +135,18 @@ def quiz_view(request):
     }
 
     return render(request, "users/quiz.html", context)
+
+def feedback_view(request):
+    form = FeedbackForm(request.POST or None, instance = request.user)
+    if form.is_valid():
+        form.save()
+        message = Feedback.objects.create(message=form.cleaned_data, sender=request.user)
+        message.save()
+        messages.success(request, f'Thanks for the feedback!')
+        return redirect('chat:chathome')
+
+    context = {
+    'form': form
+    }
+
+    return render(request, "users/feedback.html", context)
