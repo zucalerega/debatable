@@ -23,7 +23,7 @@ from posts.views import like_view
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import home_view, search_view, construction_view
-from users.views import quiz_view
+from users.views import quiz_view, feedback_view
 
 urlpatterns = [
     path('pages/', include('pages.urls')),
@@ -47,7 +47,8 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     path('password-reset-confirm<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    path('construction/', construction_view, name="construction")
+    path('construction/', construction_view, name="construction"),
+    path('feedback/', feedback_view, name='feedback')
 
 ]
 if settings.DEBUG:
