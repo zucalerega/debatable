@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile, Report
+from .models import Profile, Report, Feedback
 from posts.models import Like
 
 class LikeForm(forms.ModelForm):
@@ -60,3 +60,10 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = []
+
+class FeedbackForm(forms.ModelForm):
+    message = forms.CharField(max_length=400, widget=forms.TextInput(attrs={"placeholder":"Feedback here!"}))
+
+    class Meta:
+        model = Feedback
+        fields = ['message']
