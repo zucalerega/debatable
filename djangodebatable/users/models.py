@@ -48,3 +48,7 @@ class Report(models.Model):
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+
+class Feedback(models.Model):
+    message = models.CharField(max_length=400)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
