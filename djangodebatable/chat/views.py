@@ -234,7 +234,7 @@ def checkview(request):
 
 def send(request):
     message = request.POST['message']
-    if "<" or ">" in message:
+    if "<" in message or ">" in message:
         return redirect("/chat/")
     #username = request.POST['username']
     room_id = request.POST['room_id']
