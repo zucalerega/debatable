@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Debatabl</title>
+    <title>Debatable</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -79,7 +79,12 @@
           <h5 class="create-desc">Create or join a new group!</h5>
             {% csrf_token %}
           <input type="hidden" name="group_room" id="group_room" value="True">
-          <input type="text" name="topic" id="topic-group" class="group-name" placeholder="Enter group discussion topic"/>
+          <input list="rooms" type="text" name="topic" id="topic-group" class="group-name" placeholder="Enter group discussion topic"/>
+          <datalist id="rooms">
+            {%for room, members in group_rooms.items%}
+              <option value="{{room.topic}} - ({{members|length}} {%if members|length == 1%}member{%else%}members{%endif%})">
+            {% endfor %}
+          </datalist>
           <div id="searching_users">
             <input id="croom" class="btn btn-primary" type="submit" value="Create or Join Group"/>
           </div>
